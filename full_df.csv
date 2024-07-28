@@ -1,4 +1,4 @@
-FEDFUNDS,Owner-Occupied-Home-Proportion,30-Year-Mortgage-Rate,Consumer-Price-Index,Year,Month,Quarter,Region,Home Size,Average Sales Price,Number of Households (Thousands),Median Income - Current Dollars,Median Income - 2022 Dollars,Mean Income - Current Dollars,Mean Income - 2022 Dollars,Year-Quarter-Month
+FEDFUNDS,Owner-Occupied-Home-Proportion,rate,Consumer-Price-Index,Year,Month,Quarter,Region,Home Size,Average Sales Price,Number of Households (Thousands),Median Income - Current Dollars,Median Income - 2022 Dollars,Mean Income - Current Dollars,Mean Income - 2022 Dollars,Year-Quarter-Month
 0.07,64.9,4.432,235.288,2014,January,Q1,Midwest,Double,88200.0,27460.0,54270.0,65640.0,73480.0,88890.0,2014-Q1-January
 0.07,64.9,4.432,235.288,2014,January,Q1,Midwest,Single ,51400.0,27460.0,54270.0,65640.0,73480.0,88890.0,2014-Q1-January
 0.07,64.9,4.432,235.288,2014,January,Q1,Midwest,Total1,72000.0,27460.0,54270.0,65640.0,73480.0,88890.0,2014-Q1-January
