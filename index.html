@@ -6,11 +6,10 @@
 
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v4.js"></script>
-
+<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
 
-<script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
   // Set the dimensions and margins of the graph
   var margin = {top: 10, right: 30, bottom: 30, left: 60},
@@ -59,5 +58,42 @@
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.value); })
       );
+
+  // Adding a hollow annotation circle for 2007, directly on the line and including a spot to add some text
+  // svg.append("g")
+  //   .append("circle")
+  //   .attr("cx", x(new Date(2007, 1, 15)))
+  //   .attr("cy", y(5.2))
+  //   .attr("r", 10)
+  //   .attr("fill", "none")
+  //   .attr("stroke", "black")
+  //   .attr("stroke-width", 2);
+
+  // Add an annotation circle for the start of 2007 using D3 annotations
+  const type = d3.annotationCalloutCircle;
+  const annotations = [{
+    note: { 
+      label: "Start of the 2007-2008 Financial Crisis",
+      Title: "Financial Crisis" },
+      x: x(new Date(2007, 1, 15)),
+    y: y(5.2),
+    dy: -150,
+    dx: -10,
+    subject: { radius: 10 },
+    type: type
+  }];
+
+  const makeAnnotations = d3.annotation()
+    .type(type)
+    .annotations(annotations);
+
+  svg.append("g")
+    .attr("class", "annotation-group")
+    .call(makeAnnotations);
+
+  
+
+
+
   });
 </script>
