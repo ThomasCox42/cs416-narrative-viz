@@ -28,7 +28,7 @@ d3.select("#my_dataviz")
   .style("border-width", "1px")
   .style("border-radius", "5px")
   .style("padding", "10px")
-  .html("This graph shows the 30-year fixed mortgage rates from 1954 to Present. Hover over the line to see the rate for a specific date. This scene also includes annotations for the highest and lowest rates in the dataset.");
+  .html("The Covid-19 pandemic has had a significant impact on the global economy. The Federal Reserve slashed interest rates down to almost 0% as an intervention measure. Hover over the line to see the rate for a specific date.");
 
   // Function to format dates
   function formatDate(date) {
@@ -90,8 +90,8 @@ d3.select("#my_dataviz")
   const annotations = [{
     note: { 
       label: "Rates rapidly drop at the start of Covid-19 pandemic"},
-      x: x(new Date(2020, 1, 1)),
-    y: y(1.55),
+      x: x(new Date(2020, 1, 5)),
+    y: y(0.05),
     dy: -150,
     dx: -10,
     subject: { radius: 10 },
