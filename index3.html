@@ -28,7 +28,7 @@ d3.select("#my_dataviz")
   .style("border-width", "1px")
   .style("border-radius", "5px")
   .style("padding", "10px")
-  .html("This graph shows the 30-year fixed mortgage rates from 1954 to 2019. Hover over the line to see the rate for a specific date. This scene also includes annotations for the highest and lowest rates in the dataset.");
+  .html("This graph shows the 30-year fixed mortgage rates from 1954 to Present. Hover over the line to see the rate for a specific date. This scene also includes annotations for the highest and lowest rates in the dataset.");
 
   // Function to format dates
   function formatDate(date) {
@@ -87,28 +87,16 @@ d3.select("#my_dataviz")
 
   // Add an annotation circle for the start of 2007 using D3 annotations
   const type = d3.annotationCalloutCircle;
-  const annotations = [
-    {
+  const annotations = [{
     note: { 
-      label: "Highest ever rate at 19.1%"},
-      x: x(new Date(1981, 6, 1)),
-    y: y(19.1),
-    dy: 50,
-    dx: 50,
+      label: "Rates rapidly drop at the start of Covid-19 pandemic"},
+      x: x(new Date(2020, 1, 1)),
+    y: y(1.55),
+    dy: -150,
+    dx: -10,
     subject: { radius: 10 },
     type: type
-  },
-  { 
-  note: { 
-    label: "Lowest ever rate at 0.07%"}, 
-    x: x(new Date(2011, 7, 1)), 
-    y: y(0.07), 
-    dy: -175, 
-    dx: -5, 
-    subject: { radius: 10 },
-    type: type
-    }
-];
+  }];
 
 const makeAnnotations = d3.annotation()
   .type(type)

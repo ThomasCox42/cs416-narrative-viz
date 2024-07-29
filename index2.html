@@ -3,11 +3,10 @@
 <meta http-equiv='cache-control' content='no-cache'> 
 <meta http-equiv='expires' content='0'> 
 <meta http-equiv='pragma' content='no-cache'>
-<h1> 30-year fixed mortgage rates from 1955 to 2019</h1>
+<h1 style="font-family:Arial, sans-serif"> Federal Reserve Interest Rates, 1954-Present</h1>
 <button onclick="window.location.href='index.html'">1</button>
 <button onclick="window.location.href='index2.html'">2</button>
 <button onclick="window.location.href='index3.html'">3</button>
-
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
@@ -15,6 +14,27 @@
 <div id="my_dataviz"></div>
 
 <script>
+// add a text box in the top right corner of the graph to describe the data
+d3.select("#my_dataviz")
+  .append("div")
+  .style("font-family", "Arial, sans-serif")
+  .style("position", "absolute")
+  .style("left", "500px")
+  .style("right", "100px")
+  .style("top", "100px")
+  .style("z-index", "10")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+  .html("This graph shows the 30-year fixed mortgage rates from 1954 to 2019. Hover over the line to see the rate for a specific date. This scene also includes annotations for the highest and lowest rates in the dataset.");
+
+  // Function to format dates
+  function formatDate(date) {
+    const options = { month: 'long', day: 'numeric', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  }
   // Seeting up start of scene 1
   var scene1 = true;
   // Set the dimensions and margins of the graph
@@ -79,13 +99,86 @@
     type: type
   }];
 
-  const makeAnnotations = d3.annotation()
-    .type(type)
-    .annotations(annotations);
+const makeAnnotations = d3.annotation()
+  .type(type)
+  .annotations(annotations);
 
-  svg.append("g")
-    .attr("class", "annotation-group")
-    .call(makeAnnotations);
+svg.append("g")
+  .attr("class", "annotation-group")
+  .call(makeAnnotations);
+
+  // Create a tooltip
+  var tooltip = d3.select("#my_dataviz")
+    .append("div")
+    .style("opacity", 20)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "1px")
+    .style("border-radius", "5px")
+    .style("padding", "10px");
+
+  // Create mouseover and mouseout functions
+  var mouseover = function(d) {
+    tooltip.style("opacity", 1);
+  };
+
+  var mouseout = function(d) {
+    tooltip.style("opacity", 0);
+  };
+
+  // Add the line
+  svg.append("path")
+    .datum(data)
+    .attr("fill", "none")
+    .attr("stroke", "steelblue")
+    .attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.value); })
+    )
+    .on("mouseover", mouseover)
+    .on("mouseout", mouseout);
+
+  // Add circles to show the rate on hover
+  svg.selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("cx", function(d) { return x(d.date); })
+    .attr("cy", function(d) { return y(d.value); })
+    .attr("r", 2.5)
+    .attr("fill", "steelblue")
+    .on("mouseover", mouseover)
+    .on("mouseout", mouseout)
+    .on("mousemove", function(d) {
+      tooltip
+        .html("Date: " + formatDate(d.date) + "<br>Rate: " + d.value + "%")
+        .style("left", (d3.event.pageX + 10) + "px")
+        .style("top", (d3.event.pageY - 10) + "px");
+    });
+
+    // add a button to turn off annotations
+    d3.select("#my_dataviz")
+      .append("button")
+      .style("position", "absolute")
+      .style("left", "90px")
+      .style("top", "80px")
+      .style("z-index", "10")
+      .text("Toggle Annotations")
+      .on("click", function() {
+        if (scene1) {
+          d3.selectAll(".annotation-group").style("display", "none");
+          scene1 = false;
+        } else {
+          d3.selectAll(".annotation-group").style("display", "block");
+          scene1 = true;
+        }
+      });
+
+      
+
+
 
   });
 </script>
