@@ -14,7 +14,6 @@
 <div id="my_dataviz"></div>
 
 <script>
-// add a text box in the top right corner of the graph to describe the data
 d3.select("#my_dataviz")
   .append("div")
   .style("font-family", "Arial, sans-serif")
@@ -59,7 +58,7 @@ d3.select("#my_dataviz")
       d.value = +d.Rate; // Convert rate to a number
     });
 
-    // Add X axis --> it is a date format
+    // Add X axis
     var x = d3.scaleTime()
       .domain(d3.extent(data, function(d) { return d.date; }))
       .range([0, width]);
@@ -85,7 +84,7 @@ d3.select("#my_dataviz")
         .y(function(d) { return y(d.value); })
       );
 
-  // Add an annotation circle for the start of 2007 using D3 annotations
+  // Add an annotation circle for the start of 2007
   const type = d3.annotationCalloutCircle;
   const annotations = [
     {
@@ -118,7 +117,7 @@ svg.append("g")
   .attr("class", "annotation-group")
   .call(makeAnnotations);
 
-  // Create a tooltip
+  // Creating tooltip
   var tooltip = d3.select("#my_dataviz")
     .append("div")
     .style("opacity", 20)
@@ -151,7 +150,6 @@ svg.append("g")
     .on("mouseover", mouseover)
     .on("mouseout", mouseout);
 
-  // Add circles to show the rate on hover
   svg.selectAll("circle")
     .data(data)
     .enter()
@@ -169,7 +167,6 @@ svg.append("g")
         .style("top", (d3.event.pageY - 10) + "px");
     });
 
-    // add a button to turn off annotations
     d3.select("#my_dataviz")
       .append("button")
       .style("position", "absolute")
@@ -188,7 +185,20 @@ svg.append("g")
       });
 
       
-
+d3.select("#my_dataviz")
+  .append("div")
+  .style("font-family", "Arial, sans-serif")
+  .style("position", "absolute")
+  .style("left", "5px")
+  .style("right", "100px")
+  .style("bottom", "300px")
+  .style("z-index", "10")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+  .html("Data source: <a href='https://www.kaggle.com/datasets/federalreserve/interest-rates/data'>Kaggle Data Set - Federal Reserve Interest Rates, 1954-Present</a>");
 
 
   });
